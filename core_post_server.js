@@ -21,7 +21,6 @@ var checkCredentials = function(creds){
 }
 
 
-
 app.post('/', function(req, res){
 	// First checks to make sure the request has the proper credentials.
 	// Then accepts a post request (params: channel, message_type, message).
