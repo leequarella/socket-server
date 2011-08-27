@@ -1,0 +1,9 @@
+{
+    "name": "sockettest"
+  , "description": "socket.io server for RMS"
+  , "version": "0.0.1"
+  , "dependencies": {
+        "express": "2.3.11"
+    }
+}
+
