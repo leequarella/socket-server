@@ -7,7 +7,7 @@
 var express = require('express');
 var app = require('express').createServer()
   , io = require('socket.io').listen(app)
-app.listen();
+app.listen(); // pass the socket you wish to listen to here.  For heroku I have left it blank.
 app.use(express.bodyParser());
 
 
