@@ -1,4 +1,5 @@
 /*
+	Tuned for heroku
 	@ Author Lee Quarella
 		This server is very simple, allows end users to connect to it, join a channel, and receive information on that channel.
 		Servers can send post requests here which are then sent to the appropriate channels.
@@ -36,7 +37,7 @@ app.post('/', function(req, res){
 
 
 io.sockets.on('connection', function (socket) {
-	console.log("Client connected.")
+	console.log("((((((((Client connected.))))))))\n\n")
 	clients.newClient(socket)
 
 	socket.on('set nickname', function (data) {
