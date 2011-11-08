@@ -4,13 +4,12 @@
 #		Servers can send post requests here which are then sent to the appropriate channels.
 
 #Initialize the server
-@port = process.env.PORT || 3000
-@express = require('express')
-@app = require('express').createServer()
-@io = require('socket.io').listen(@app)
-@app.listen(@port)
-@app.use(@express.bodyParser()) 
-console.log "+++++++++++++++++++++++++++++++++++++++++++++++++++"
+port = process.env.PORT || 3000
+express = require('express')
+app = require('express').createServer()
+io = require('socket.io').listen(app)
+app.listen(port)
+app.use(@express.bodyParser()) 
 
 @checkCredentials = (creds) ->
   #if creds are good
@@ -19,7 +18,7 @@ console.log "+++++++++++++++++++++++++++++++++++++++++++++++++++"
     return false
 
 
-@app.post '/', (req, res) ->
+app.post '/', (req, res) ->
   # First checks to make sure the request has the proper credentials.
   # Then accepts a post request (params: channel, message_type, message).
   # Finally sends the message_type and message to the channel
@@ -30,7 +29,7 @@ console.log "+++++++++++++++++++++++++++++++++++++++++++++++++++"
 
 
 
-@io.sockets.on 'connection', (socket) ->
+io.sockets.on 'connection', (socket) ->
   console.log "((((((((Client connected))))))))"
   clients.newClient(socket)
 

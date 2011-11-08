@@ -1,16 +1,16 @@
 (function() {
-  this.port = process.env.PORT || 3000;
-  this.express = require('express');
-  this.app = require('express').createServer();
-  this.io = require('socket.io').listen(this.app);
-  this.app.listen(this.port);
-  this.app.use(this.express.bodyParser());
-  console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++");
+  var app, express, io, port;
+  port = process.env.PORT || 3000;
+  express = require('express');
+  app = require('express').createServer();
+  io = require('socket.io').listen(app);
+  app.listen(port);
+  app.use(this.express.bodyParser());
   this.checkCredentials = function(creds) {
     return true;
     return false;
   };
-  this.app.post('/', function(req, res) {
+  app.post('/', function(req, res) {
     if (checkCredentials(req.body.credentials)) {
       res.send("received");
       console.log("EMMITING (post) " + req.body.message_type + " to channel " + req.body.channel + ": " + req.body.message);
@@ -19,7 +19,7 @@
       });
     }
   });
-  this.io.sockets.on('connection', function(socket) {
+  io.sockets.on('connection', function(socket) {
     console.log("((((((((Client connected))))))))");
     clients.newClient(socket);
     socket.on('set nickname', function(data) {
