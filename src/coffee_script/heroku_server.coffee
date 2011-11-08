@@ -5,13 +5,13 @@
 
 #Initialize the server
 port = process.env.PORT || 3000
-express = require('express')
-app = require('express').createServer()
+express = require 'express'
+app = express.createServer()
 io = require('socket.io').listen(app)
-app.listen(port)
-app.use(express.bodyParser()) 
+app.listen port
+app.use express.bodyParser()
 
-@checkCredentials = (creds) ->
+app.checkCredentials = (creds) ->
   #if creds are good
     return true
   #else
@@ -22,7 +22,7 @@ app.post '/', (req, res) ->
   # First checks to make sure the request has the proper credentials.
   # Then accepts a post request (params: channel, message_type, message).
   # Finally sends the message_type and message to the channel
-  if checkCredentials req.body.credentials 
+  if app.checkCredentials req.body.credentials 
     res.send("received")
     console.log "EMMITING (post) " + req.body.message_type + " to channel " + req.body.channel + ": " + req.body.message
     io.sockets.in(req.body.channel).emit(req.body.message_type, { message: req.body.message })

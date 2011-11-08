@@ -2,16 +2,16 @@
   var app, express, io, port;
   port = process.env.PORT || 3000;
   express = require('express');
-  app = require('express').createServer();
+  app = express.createServer();
   io = require('socket.io').listen(app);
   app.listen(port);
   app.use(express.bodyParser());
-  this.checkCredentials = function(creds) {
+  app.checkCredentials = function(creds) {
     return true;
     return false;
   };
   app.post('/', function(req, res) {
-    if (checkCredentials(req.body.credentials)) {
+    if (app.checkCredentials(req.body.credentials)) {
       res.send("received");
       console.log("EMMITING (post) " + req.body.message_type + " to channel " + req.body.channel + ": " + req.body.message);
       return io.sockets["in"](req.body.channel).emit(req.body.message_type, {
