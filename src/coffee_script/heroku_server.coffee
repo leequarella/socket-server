@@ -9,7 +9,7 @@ express = require('express')
 app = require('express').createServer()
 io = require('socket.io').listen(app)
 app.listen(port)
-app.use(@express.bodyParser()) 
+app.use(express.bodyParser()) 
 
 @checkCredentials = (creds) ->
   #if creds are good

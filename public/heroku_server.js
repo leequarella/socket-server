@@ -5,7 +5,7 @@
   app = require('express').createServer();
   io = require('socket.io').listen(app);
   app.listen(port);
-  app.use(this.express.bodyParser());
+  app.use(express.bodyParser());
   this.checkCredentials = function(creds) {
     return true;
     return false;
