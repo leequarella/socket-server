@@ -5,13 +5,11 @@
 
 #Initialize the server
 @port = process.env.PORT || 3000
-console.log @port
 @express = require('express')
 @app = require('express').createServer()
+@io = require('socket.io').listen(@app)
 @app.listen(@port)
 @app.use(@express.bodyParser()) 
-@io = require('socket.io').listen(app)
-
 
 @checkCredentials = (creds) ->
   #if creds are good
