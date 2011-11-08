@@ -2,7 +2,7 @@
   this.port = process.env.PORT || 3000;
   console.log(this.port);
   this.express = require('express');
-  this.app = require('express').createServer().listen(this.port).use(express.bodyParser());
+  this.app = require('express').createServer().listen(this.port).use(this.express.bodyParser());
   this.io = require('socket.io').listen(app);
   this.checkCredentials = function(creds) {
     return true;

@@ -7,7 +7,7 @@
 @port = process.env.PORT || 3000
 console.log @port
 @express = require('express')
-@app = require('express').createServer().listen(@port).use(express.bodyParser()) 
+@app = require('express').createServer().listen(@port).use(@express.bodyParser()) 
 @io = require('socket.io').listen(app)
 
 
