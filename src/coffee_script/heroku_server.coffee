@@ -31,23 +31,23 @@ app.post '/', (req, res) ->
 
 io.sockets.on 'connection', (socket) ->
   console.log "((((((((Client connected))))))))"
-  clients.newClient(socket)
+  app.clients.newClient(socket)
 
   socket.on 'set nickname', (data) ->
-    clients.setNickname(socket, data.nickname)
+    app.clients.setNickname(socket, data.nickname)
 
   socket.on "change channel", (data) ->
     console.log "((((((((Client joining channel " + data.channel + "))))))))\n\n"
-    clients.joinChannel(socket, data.channel)
+    app.clients.joinChannel(socket, data.channel)
 
   socket.on 'disconnect', ()->
     console.log "((((((((Client disconnected))))))))\n\n"
-    clients.disconnect(socket)
+    app.clients.disconnect(socket)
 
 
 
 
-@clients =
+app.clients =
   list: {}
   newClient: (socket) ->
     client =

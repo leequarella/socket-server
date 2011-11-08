@@ -21,20 +21,20 @@
   });
   io.sockets.on('connection', function(socket) {
     console.log("((((((((Client connected))))))))");
-    clients.newClient(socket);
+    app.clients.newClient(socket);
     socket.on('set nickname', function(data) {
-      return clients.setNickname(socket, data.nickname);
+      return app.clients.setNickname(socket, data.nickname);
     });
     socket.on("change channel", function(data) {
       console.log("((((((((Client joining channel " + data.channel + "))))))))\n\n");
-      return clients.joinChannel(socket, data.channel);
+      return app.clients.joinChannel(socket, data.channel);
     });
     return socket.on('disconnect', function() {
       console.log("((((((((Client disconnected))))))))\n\n");
-      return clients.disconnect(socket);
+      return app.clients.disconnect(socket);
     });
   });
-  this.clients = {
+  app.clients = {
     list: {},
     newClient: function(socket) {
       var client;
