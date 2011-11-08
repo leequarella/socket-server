@@ -13,7 +13,7 @@
   app.post('/', function(req, res) {
     if (app.checkCredentials(req.body.credentials)) {
       res.send("received");
-      console.log("EMMITING (post) " + req.body.message_type + " to channel " + req.body.channel + ": " + req.body.message);
+      console.log("(((((((( EMMITING (post) " + req.body.message_type + " to channel " + req.body.channel + ": " + req.body.message + " ))))))))");
       return io.sockets["in"](req.body.channel).emit(req.body.message_type, {
         message: req.body.message
       });
