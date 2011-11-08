@@ -1,5 +1,6 @@
 (function() {
   this.port = process.env.PORT || 3000;
+  console.log(port);
   this.express = require('express');
   this.app = require('express').createServer().listen(port).use(express.bodyParser());
   this.io = require('socket.io').listen(app);
