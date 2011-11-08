@@ -19,7 +19,7 @@
       });
     }
   });
-  io.sockets.on('connection', function(socket) {
+  this.io.sockets.on('connection', function(socket) {
     console.log("((((((((Client connected))))))))");
     clients.newClient(socket);
     socket.on('set nickname', function(data) {

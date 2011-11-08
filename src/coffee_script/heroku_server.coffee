@@ -30,7 +30,7 @@ console.log "+++++++++++++++++++++++++++++++++++++++++++++++++++"
 
 
 
-io.sockets.on 'connection', (socket) ->
+@io.sockets.on 'connection', (socket) ->
   console.log "((((((((Client connected))))))))"
   clients.newClient(socket)
 
