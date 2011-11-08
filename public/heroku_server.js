@@ -30,7 +30,7 @@
       return app.clients.joinChannel(socket, data.channel);
     });
     return socket.on('disconnect', function() {
-      console.log("((((((((Client disconnected))))))))\n\n");
+      console.log("((((((((Client disconnected. " + socket.id + "))))))))\n\n");
       return app.clients.disconnect(socket);
     });
   });

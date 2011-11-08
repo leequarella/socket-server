@@ -41,7 +41,7 @@ io.sockets.on 'connection', (socket) ->
     app.clients.joinChannel(socket, data.channel)
 
   socket.on 'disconnect', ()->
-    console.log "((((((((Client disconnected))))))))\n\n"
+    console.log "((((((((Client disconnected. " + socket.id + "))))))))\n\n"
     app.clients.disconnect(socket)
 
 
