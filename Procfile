@@ -1,2 +1,2 @@
-web: node public/web.js
+web: node public/heroku_server.js
 
