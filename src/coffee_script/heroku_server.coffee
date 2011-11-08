@@ -3,12 +3,11 @@
 #		This server is very simple, allows end users to connect to it, join a channel, and receive information on that channel.
 #		Servers can send post requests here which are then sent to the appropriate channels.
 
-
 #Initialize the server
 @port = process.env.PORT || 3000
-console.log port
+console.log @port
 @express = require('express')
-@app = require('express').createServer().listen(port).use(express.bodyParser()) 
+@app = require('express').createServer().listen(@port).use(express.bodyParser()) 
 @io = require('socket.io').listen(app)
 
 
