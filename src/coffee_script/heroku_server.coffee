@@ -10,6 +10,7 @@
 @io = require('socket.io').listen(@app)
 @app.listen(@port)
 @app.use(@express.bodyParser()) 
+console.log "+++++++++++++++++++++++++++++++++++++++++++++++++++"
 
 @checkCredentials = (creds) ->
   #if creds are good
@@ -18,7 +19,7 @@
     return false
 
 
-app.post '/', (req, res) ->
+@app.post '/', (req, res) ->
   # First checks to make sure the request has the proper credentials.
   # Then accepts a post request (params: channel, message_type, message).
   # Finally sends the message_type and message to the channel

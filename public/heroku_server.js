@@ -5,11 +5,12 @@
   this.io = require('socket.io').listen(this.app);
   this.app.listen(this.port);
   this.app.use(this.express.bodyParser());
+  console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++");
   this.checkCredentials = function(creds) {
     return true;
     return false;
   };
-  app.post('/', function(req, res) {
+  this.app.post('/', function(req, res) {
     if (checkCredentials(req.body.credentials)) {
       res.send("received");
       console.log("EMMITING (post) " + req.body.message_type + " to channel " + req.body.channel + ": " + req.body.message);
