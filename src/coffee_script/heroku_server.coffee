@@ -89,7 +89,7 @@ app.clients =
     console.log client.nickname + " disconnected from channel " + client.channel + "."
     if client.nickname
       socket.broadcast.to(client.channel).emit("channel message", { userName: "Server", mes: client.nickname + " has disconnected."})
-    delete clients[socket.id]
+    delete @list[socket.id]
 
 
 

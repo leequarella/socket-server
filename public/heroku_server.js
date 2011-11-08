@@ -98,7 +98,7 @@
           mes: client.nickname + " has disconnected."
         });
       }
-      return delete clients[socket.id];
+      return delete this.list[socket.id];
     }
   };
 }).call(this);
