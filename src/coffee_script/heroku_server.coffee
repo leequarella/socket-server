@@ -1,7 +1,7 @@
 #	Tuned for heroku
 #	@ Author Lee Quarella
-#		This server is very simple, allows end users to connect to it, join a channel, and receive information on that channel.
-#		Servers can send post requests here which are then sent to the appropriate channels.
+#       This server is very simple, allows end users to connect to it, join a channel, and receive information on that channel.
+#	Servers can send post requests here which are then sent to the appropriate channels.
 
 #Initialize the server
 port = process.env.PORT || 3000
@@ -22,7 +22,7 @@ app.post '/', (req, res) ->
   # First checks to make sure the request has the proper credentials.
   # Then accepts a post request (params: channel, message_type, message).
   # Finally sends the message_type and message to the channel
-  if app.checkCredentials req.body.credentials 
+  if app.checkCredentials req.body.credentials
     res.send("received")
     console.log "(((((((( EMMITING (post) " + req.body.message_type + " to channel " + req.body.channel + ": " + req.body.message + " ))))))))"
     io.sockets.in(req.body.channel).emit(req.body.message_type, { message: req.body.message })
@@ -40,7 +40,7 @@ io.sockets.on 'connection', (socket) ->
     console.log "((((((((Client joining channel " + data.channel + "))))))))\n\n"
     app.clients.joinChannel(socket, data.channel)
 
-  socket.on 'disconnect', ()->
+  socket.on 'disconnect', ->
     console.log "((((((((Client disconnected. " + socket.id + "))))))))\n\n"
     app.clients.disconnect(socket)
 
