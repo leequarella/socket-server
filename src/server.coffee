@@ -2,6 +2,8 @@
 #	@ Author Lee Quarella
 #       This server is very simple, allows end users to connect to it, join a channel, and receive information on that channel.
 #	Servers can send post requests here which are then sent to the appropriate channels.
+class app.Server
+  constructor: (@port) ->
 
 #Initialize the server
 port = process.env.PORT || 3000
@@ -57,7 +59,7 @@ app.clients =
     @list[socket.id] = client
 
 
-  setNickname: (socket, nickname) -> 
+  setNickname: (socket, nickname) ->
     client = @list[socket.id]
     client.nickname = nickname
     socket.set 'nickname', nickname, ()->
