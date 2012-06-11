@@ -1,17 +1,16 @@
-#	Tuned for heroku
 #	@ Author Lee Quarella
 #       This server is very simple, allows end users to connect to it, join a channel, and receive information on that channel.
 #	Servers can send post requests here which are then sent to the appropriate channels.
-class app.Server
-  constructor: (@port) ->
 
 #Initialize the server
-port = process.env.PORT || 3000
+port = process.env.PORT || 3001
 express = require 'express'
 app = express.createServer()
 io = require('socket.io').listen(app)
 app.listen port
 app.use express.bodyParser()
+
+app.use express.static(__dirname + '/views')
 
 app.checkCredentials = (creds) ->
   #if creds are good
@@ -19,6 +18,15 @@ app.checkCredentials = (creds) ->
   #else
     return false
 
+
+app.get '/', (req, res) ->
+  # First checks to make sure the request has the proper credentials.
+  # Then accepts a post request (params: channel, message_type, message).
+  # Finally sends the message_type and message to the channel
+  if app.checkCredentials req.body.credentials
+    res.render("index.html")
+    console.log "!! GET REQUEST RECEIVED !!"
+    io.sockets.in(req.body.channel).emit(req.body.message_type, { message: req.body.message })
 
 app.post '/', (req, res) ->
   # First checks to make sure the request has the proper credentials.
@@ -29,13 +37,12 @@ app.post '/', (req, res) ->
     console.log "(((((((( EMMITING (post) " + req.body.message_type + " to channel " + req.body.channel + ": " + req.body.message + " ))))))))"
     io.sockets.in(req.body.channel).emit(req.body.message_type, { message: req.body.message })
 
-
-
 io.sockets.on 'connection', (socket) ->
   console.log "((((((((Client connected))))))))"
   app.clients.newClient(socket)
 
   socket.on 'set nickname', (data) ->
+    console.log "((((((((Nickname set " + data. nickname
     app.clients.setNickname(socket, data.nickname)
 
   socket.on "change channel", (data) ->
@@ -46,6 +53,9 @@ io.sockets.on 'connection', (socket) ->
     console.log "((((((((Client disconnected. " + socket.id + "))))))))\n\n"
     app.clients.disconnect(socket)
 
+  socket.on 'broadcast', (data) ->
+    console.log "((((((((Client Broadcasting " + socket.id + "))))))))\n\n"
+    app.clients.broadcast(socket, data.message)
 
 
 
@@ -92,8 +102,7 @@ app.clients =
     if client.nickname
       socket.broadcast.to(client.channel).emit("channel message", { userName: "Server", mes: client.nickname + " has disconnected."})
     delete @list[socket.id]
-
-
-
-
-
+  
+  broadcast: (socket, message) ->
+    client = @list[socket.id]
+    socket.broadcast.to(client.channel).emit("channel message", { userName: client.nickname, mes: message})

@@ -1,7 +1,6 @@
 source 'http://rubygems.org'
 
-group :test do
-  gem 'libnotify'
-  gem 'guard-jasmine-node'
-  gem 'guard-coffeescript'
-end
+gem 'haml'
+gem 'sass'
+gem 'guard-coffeescript'
+gem 'guard-haml'

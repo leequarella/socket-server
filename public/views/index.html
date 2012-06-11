@@ -1,12 +1,10 @@
 <!--This is the chat server test html-->
 
 <h1 id="channelName"> Channel 1</h1>
-
 <div id="userName">
     Please enter your name: <input id="name">
     <button onclick="startChat()">Enter Chat</button>
 </div>
-
 
 <div id="chat" style="display:none;">
     <div id="channels" style="float:right; width:10%; border:1px solid black; cursor:pointer;">
@@ -18,14 +16,10 @@
     <button onclick="sendSock()">Send</button>
 </div>
 
-
-
-
-<script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
 <script src="/socket.io/socket.io.js"></script>
-
 <script>
-  var socket = io.connect("http://localhost");
+  var socket = io.connect();
   socket.emit("change channel", {channel:1})
 
   socket.on('channel message', function (data) {
@@ -58,7 +52,7 @@
   function sendSock(){
     mes = $("#message").val()
     $("#message").val("")
-    socket.emit('client broadcast to channel', { mes: mes });
+    socket.emit('broadcast', { message: mes });
     writeToScreen($("#name").val(), mes)
   }
 
@@ -69,7 +63,6 @@
     $("#messages").html(html).scrollTop($("#messages").outerHeight());
         console.log($("messages").outerHeight())
   }
-
 
 
   function changeChannel(channel){

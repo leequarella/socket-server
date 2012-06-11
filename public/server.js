@@ -1,17 +1,7 @@
 (function() {
   var app, express, io, port;
 
-  app.Server = (function() {
-
-    function Server(port) {
-      this.port = port;
-    }
-
-    return Server;
-
-  })();
-
-  port = process.env.PORT || 3000;
+  port = process.env.PORT || 3001;
 
   express = require('express');
 
@@ -23,10 +13,22 @@
 
   app.use(express.bodyParser());
 
+  app.use(express.static(__dirname + '/views'));
+
   app.checkCredentials = function(creds) {
     return true;
     return false;
   };
+
+  app.get('/', function(req, res) {
+    if (app.checkCredentials(req.body.credentials)) {
+      res.render("index.html");
+      console.log("!! GET REQUEST RECEIVED !!");
+      return io.sockets["in"](req.body.channel).emit(req.body.message_type, {
+        message: req.body.message
+      });
+    }
+  });
 
   app.post('/', function(req, res) {
     if (app.checkCredentials(req.body.credentials)) {
@@ -42,15 +44,20 @@
     console.log("((((((((Client connected))))))))");
     app.clients.newClient(socket);
     socket.on('set nickname', function(data) {
+      console.log("((((((((Nickname set " + data.nickname);
       return app.clients.setNickname(socket, data.nickname);
     });
     socket.on("change channel", function(data) {
       console.log("((((((((Client joining channel " + data.channel + "))))))))\n\n");
       return app.clients.joinChannel(socket, data.channel);
     });
-    return socket.on('disconnect', function() {
+    socket.on('disconnect', function() {
       console.log("((((((((Client disconnected. " + socket.id + "))))))))\n\n");
       return app.clients.disconnect(socket);
+    });
+    return socket.on('broadcast', function(data) {
+      console.log("((((((((Client Broadcasting " + socket.id + "))))))))\n\n");
+      return app.clients.broadcast(socket, data.message);
     });
   });
 
@@ -119,6 +126,14 @@
         });
       }
       return delete this.list[socket.id];
+    },
+    broadcast: function(socket, message) {
+      var client;
+      client = this.list[socket.id];
+      return socket.broadcast.to(client.channel).emit("channel message", {
+        userName: client.nickname,
+        mes: message
+      });
     }
   };
 

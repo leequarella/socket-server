@@ -3,9 +3,10 @@
   , "description": "socket.io server for RMS"
   , "version": "0.0.1"
   , "dependencies": {
-        "express": "2.5.8",
-	"socket.io": "0.9",
-	"jasmine-node": "1.0.21"
-    }
+        "express": "2.5.9",
+	      "socket.io": "0.9",
+        "jade": "0.26.1",
+	      "jasmine-node": "1.0.21"
+  }
 }
 
