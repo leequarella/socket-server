@@ -1,3 +1,4 @@
+Logger = require('../logger').Logger
 class Client
   constructor: (@socket, @channel, @nickname) ->
     @id = @socket.id
@@ -29,7 +30,7 @@ class Client
     @channel = null
 
   disconnect: ->
-    console.log @nickname + " disconnected from channel " + @channel + "."
+    Logger.info @nickname + " disconnected from channel " + @channel + "."
     if @nickname
       @socket.broadcast.to(@channel).emit("channel message", { userName: "Server", mes: @nickname + " has disconnected."})
 

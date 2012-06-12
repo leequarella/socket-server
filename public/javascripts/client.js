@@ -1,5 +1,7 @@
 (function() {
-  var Client;
+  var Client, Logger;
+
+  Logger = require('../logger').Logger;
 
   Client = (function() {
 
@@ -64,7 +66,7 @@
     };
 
     Client.prototype.disconnect = function() {
-      console.log(this.nickname + " disconnected from channel " + this.channel + ".");
+      Logger.info(this.nickname + " disconnected from channel " + this.channel + ".");
       if (this.nickname) {
         return this.socket.broadcast.to(this.channel).emit("channel message", {
           userName: "Server",

@@ -17,13 +17,16 @@ Clients = new Clients
 Security = require("./javascripts/security").Security
 Security = new Security
 
+Logger = require("./logger").Logger
+Logger = new Logger
+
 app.get '/', (req, res) ->
   # First checks to make sure the request has the proper credentials.
   # Then serves up the index page
   # Finally sends the message_type and message to the channel
   if Security.checkCredentials req.body.credentials
     res.render("views/index.html")
-    console.log "!! GET REQUEST RECEIVED !!"
+    Logger.info "!! GET REQUEST RECEIVED !!"
     io.sockets.in(req.body.channel).emit(req.body.message_type, { message: req.body.message })
 
 app.post '/', (req, res) ->
@@ -32,25 +35,25 @@ app.post '/', (req, res) ->
   # Finally sends the message_type and message to the channel
   if Security.checkCredentials req.body.credentials
     res.send("received")
-    console.log "(((((((( EMMITING (post) " + req.body.message_type + " to channel " + req.body.channel + ": " + req.body.message + " ))))))))"
+    Logger.info "EMMITING (post) " + req.body.message_type + " to channel " + req.body.channel + ": " + req.body.message
     io.sockets.in(req.body.channel).emit(req.body.message_type, { message: req.body.message })
 
 io.sockets.on 'connection', (socket) ->
-  console.log "((((((((Client connected))))))))"
+  Logger.info "Client connected"
   Clients.newClient(socket)
 
   socket.on 'set nickname', (data) ->
-    console.log "((((((((Nickname set " + data. nickname +  "))))))))"
+    Logger.info "Nickname set " + data. nickname
     Clients.setNickname(socket, data.nickname)
 
   socket.on "change channel", (data) ->
-    console.log "((((((((Client joining channel " + data.channel + "))))))))\n"
+    Logger.info "Client joining channel " + data.channel
     Clients.joinChannel(socket, data.channel)
 
   socket.on 'disconnect', ->
-    console.log "((((((((Client disconnected. " + socket.id + "))))))))\n"
+    Logger.info "Client disconnected. " + socket.id
     Clients.disconnect(socket)
 
   socket.on 'broadcast', (data) ->
-    console.log "((((((((Client Broadcasting " + socket.id + "))))))))\n"
+    Logger.info "Client Broadcasting " + socket.id
     Clients.broadcast(socket, data.message)
