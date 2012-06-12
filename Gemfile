@@ -5,4 +5,5 @@ group :test do
   gem 'sass'
   gem 'guard-coffeescript'
   gem 'guard-haml'
+  gem 'foreman'
 end
