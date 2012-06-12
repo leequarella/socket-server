@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-group :development do
+group :test do
   gem 'haml'
   gem 'sass'
   gem 'guard-coffeescript'
