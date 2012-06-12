@@ -1,7 +1,11 @@
 {
-    "name": "sockettest"
-  , "description": "socket.io server for RMS"
+    "name": "socketserver"
+  , "description": "socket.io server for LucidFrog"
   , "version": "0.0.1"
+  , "engines": {
+      "node": "0.6.x",
+      "npm": "1.1.x"
+  }
   , "dependencies": {
         "express": "2.5.9",
 	      "socket.io": "0.9",
