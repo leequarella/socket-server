@@ -5,8 +5,6 @@
 
   Client = (function() {
 
-    Client.name = 'Client';
-
     function Client(socket, channel, nickname) {
       this.socket = socket;
       this.channel = channel;
@@ -66,7 +64,6 @@
     };
 
     Client.prototype.disconnect = function() {
-      Logger.info(this.nickname + " disconnected from channel " + this.channel + ".");
       if (this.nickname) {
         return this.socket.broadcast.to(this.channel).emit("channel message", {
           userName: "Server",

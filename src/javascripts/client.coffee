@@ -30,7 +30,7 @@ class Client
     @channel = null
 
   disconnect: ->
-    Logger.info @nickname + " disconnected from channel " + @channel + "."
+    #Logger.info @nickname + " disconnected from channel " + @channel + "."
     if @nickname
       @socket.broadcast.to(@channel).emit("channel message", { userName: "Server", mes: @nickname + " has disconnected."})
 
