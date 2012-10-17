@@ -1,19 +1,23 @@
 (function() {
-  var Clients, Logger, Security, app, express, io, port;
+  var Clients, Logger, Security, app, express, http, io, port, server;
 
   port = process.env.PORT || 3001;
 
   express = require('express');
 
-  app = express.createServer();
+  app = express();
 
-  io = require('socket.io').listen(app);
+  http = require('http');
 
-  app.listen(port);
+  server = http.createServer(app);
+
+  io = require('socket.io').listen(server);
+
+  server.listen(port);
 
   app.use(express.bodyParser());
 
-  app.use(express["static"](__dirname + '/views'));
+  app.use(express.static(__dirname + '/views'));
 
   Clients = require("./javascripts/clients").Clients;
 

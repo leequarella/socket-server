@@ -5,9 +5,11 @@
 #Initialize the server
 port = process.env.PORT || 3001
 express = require 'express'
-app = express.createServer()
-io = require('socket.io').listen(app)
-app.listen port
+app = express()
+http = require 'http'
+server = http.createServer(app)
+io = require('socket.io').listen(server)
+server.listen port
 app.use express.bodyParser()
 app.use express.static(__dirname + '/views')
 
