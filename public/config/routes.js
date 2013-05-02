@@ -2,7 +2,7 @@
   app.get('/', function(req, res) {
     if (Security.checkCredentials(req.body.credentials)) {
       Logger.info("!! GET REQUEST RECEIVED !!");
-      res.sendfile("views/index.html");
+      res.sendfile("app/views/index.html");
       return io.sockets["in"](req.body.channel).emit(req.body.message_type, {
         message: req.body.message
       });

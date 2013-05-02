@@ -1,20 +1,29 @@
 class ServerInitializer
-  constructor: ->
-    console.log "STARTING SERVER"
-    express = require 'express'
-    http = require 'http'
-
-    console.log " ...creating globals"
+  constructor: () ->
     global.port = process.env.PORT || 3001
-    global.app = express()
-    global.server = http.createServer(app)
+    @port = port
+    @express = require 'express'
+    @http = require 'http'
+    console.log "STARTING SERVER"
+    @startExpress()
+    @startSocketIO()
+    @startStaticService()
 
-    console.log " ...attempting to listen on port #{port}"
+  startExpress: ->
+    console.log " ...preparing express server."
+    global.app = @express()
+
+  startSocketIO: ->
+    console.log " ...preparing http for socket.io"
+    global.server = @http.createServer(app)
     global.io = require('socket.io').listen(server)
-    server.listen port
+    server.listen @port
+    console.log " ...socket.io listening on port #{port}"
 
-    app.use express.bodyParser()
-    app.use express.static(__dirname + '/views')
-    console.log " ...done."
+  startStaticService: ->
+    console.log " ...preparing to serve static assets"
+    app.use @express.bodyParser()
+    app.use @express.static(__dirname + '/static')
+    console.log "..done."
 
-new ServerInitializer
+exports.ServerInitializer = ServerInitializer

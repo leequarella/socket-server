@@ -3,7 +3,7 @@ app.get '/', (req, res) -> # First checks to make sure the request has the prope
   # Finally sends the message_type and message to the channel
   if Security.checkCredentials req.body.credentials
     Logger.info "!! GET REQUEST RECEIVED !!"
-    res.sendfile("views/index.html")
+    res.sendfile("app/views/index.html")
     io.sockets.in(req.body.channel).emit(req.body.message_type, { message: req.body.message })
 
 app.post '/', (req, res) ->
