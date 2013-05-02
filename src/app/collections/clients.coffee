@@ -1,4 +1,4 @@
-Client = require("./client").Client
+Client = require("../models/client").Client
 class Clients
   constructor: ->
   list: {}
@@ -22,7 +22,7 @@ class Clients
     client = @getClient(socket.id)
     client.disconnect()
     delete @list[socket.id]
-  
+
   broadcast: (socket, message) ->
     client = @getClient(socket.id)
     client.broadcast(message)

@@ -1,10 +1,7 @@
 (function() {
-  var Client, Logger;
-
-  Logger = require('../logger').Logger;
+  var Client;
 
   Client = (function() {
-
     function Client(socket, channel, nickname) {
       this.socket = socket;
       this.channel = channel;
@@ -14,6 +11,7 @@
 
     Client.prototype.setChannel = function(channel) {
       var _this = this;
+
       this.leaveCurrentChannel();
       this.channel = channel;
       this.socket.set('channel', channel, function() {
@@ -34,6 +32,7 @@
 
     Client.prototype.setNickname = function(nickname) {
       var _this = this;
+
       this.nickname = nickname;
       return this.socket.set('nickname', nickname, function() {
         return _this.socket.broadcast.emit('channel message', {

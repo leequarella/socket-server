@@ -1,4 +1,3 @@
-Logger = require('../logger').Logger
 class Client
   constructor: (@socket, @channel, @nickname) ->
     @id = @socket.id
