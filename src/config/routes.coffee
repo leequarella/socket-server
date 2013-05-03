@@ -1,3 +1,7 @@
+app.get '/client/socket_junk.js', (req, res) -> res.sendfile("client/socket_junk.js")
+app.get '/client/ui.js', (req, res) -> res.sendfile("client/ui.js")
+app.get '/client/init.js', (req, res) -> res.sendfile("client/init.js")
+
 app.get '/', (req, res) -> # First checks to make sure the request has the proper credentials.
   # Then serves up the index page
   # Finally sends the message_type and message to the channel

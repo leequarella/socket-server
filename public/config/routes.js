@@ -1,4 +1,16 @@
 (function() {
+  app.get('/client/socket_junk.js', function(req, res) {
+    return res.sendfile("client/socket_junk.js");
+  });
+
+  app.get('/client/ui.js', function(req, res) {
+    return res.sendfile("client/ui.js");
+  });
+
+  app.get('/client/init.js', function(req, res) {
+    return res.sendfile("client/init.js");
+  });
+
   app.get('/', function(req, res) {
     if (Security.checkCredentials(req.body.credentials)) {
       Logger.info("!! GET REQUEST RECEIVED !!");

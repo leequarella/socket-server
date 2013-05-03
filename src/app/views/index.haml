@@ -1,17 +1,21 @@
-%h1#channelName Channel 1
+%h1 Connected to Socket Server
+
+%h2#channelName Channel 1
 #userName
   Please enter your name:
   %input{:id => "name"}
-  %button{:onclick => "startChat()"} Enter Chat
+  %button#startChat Enter Chat
 
 #chat{:style => "display:none;"}
   #channels{:style => "float:right; width:10%; border:1px solid black; cursor:pointer;"}
     #channel1 Channel 1
     #channel2 Channel 2
   #messages{:style => "max-height:200px; height:500px; overflow:auto; width: 70%; border:1px solid black"}
-    %input#message
-    %button{:onclick => "sendSock()"} Send
+  %input#message
+  %button#sendMessage Send
 
 %script{:src => "http://code.jquery.com/jquery-1.7.2.min.js"}
 %script{:src => "/socket.io/socket.io.js"}
-%script{:src => "/static/socket_junk.js"}
+%script{:src => "/client/socket_junk.js"}
+%script{:src => "/client/ui.js"}
+%script{:src => "/client/init.js"}

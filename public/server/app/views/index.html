@@ -1,0 +1,19 @@
+<h1 id='channelName'>Channel 1</h1>
+<div id='userName'>
+  Please enter your name:
+  <input id='name'>
+  <button onclick='startChat()'>Enter Chat</button>
+</div>
+<div id='chat' style='display:none;'>
+  <div id='channels' style='float:right; width:10%; border:1px solid black; cursor:pointer;'>
+    <div id='channel1'>Channel 1</div>
+    <div id='channel2'>Channel 2</div>
+  </div>
+  <div id='messages' style='max-height:200px; height:500px; overflow:auto; width: 70%; border:1px solid black'>
+    <input id='message'>
+    <button onclick='sendSock()'>Send</button>
+  </div>
+</div>
+<script src='http://code.jquery.com/jquery-1.7.2.min.js'></script>
+<script src='/socket.io/socket.io.js'></script>
+<script src='/socket_junk.js'></script>
