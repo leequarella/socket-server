@@ -4,9 +4,9 @@
   Client = require("../models/client").Client;
 
   Clients = (function() {
-    function Clients() {}
-
-    Clients.prototype.list = {};
+    function Clients() {
+      this.list = {};
+    }
 
     Clients.prototype.newClient = function(socket) {
       var client;

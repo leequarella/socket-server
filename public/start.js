@@ -7,11 +7,11 @@
 
   new ServerInitializer(port);
 
+  require("./config/routes").Routes;
+
   Clients = require("./app/collections/clients").Clients;
 
   global.Clients = new Clients;
-
-  require("./config/routes").Routes;
 
   Security = require("./lib/security").Security;
 

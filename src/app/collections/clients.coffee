@@ -1,7 +1,7 @@
 Client = require("../models/client").Client
 class Clients
   constructor: ->
-  list: {}
+    @list = {}
 
   newClient: (socket) ->
     client = new Client(socket)

@@ -2,8 +2,7 @@
   var ServerInitializer;
 
   ServerInitializer = (function() {
-    function ServerInitializer() {
-      global.port = process.env.PORT || 3001;
+    function ServerInitializer(port) {
       this.port = port;
       this.express = require('express');
       this.http = require('http');

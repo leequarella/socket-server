@@ -1,6 +1,5 @@
 class ServerInitializer
-  constructor: () ->
-    global.port = process.env.PORT || 3001
+  constructor: (port) ->
     @port = port
     @express = require 'express'
     @http = require 'http'

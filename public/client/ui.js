@@ -36,7 +36,7 @@
       var nickname;
 
       nickname = $("#name").val();
-      return ClientSocket.setNickname();
+      return ClientSocket.setNickname(nickname);
     };
 
     Ui.prototype.displayMessage = function(who, message) {

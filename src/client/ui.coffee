@@ -16,7 +16,7 @@ class @Ui
 
   setNickname: ->
     nickname = $("#name").val()
-    ClientSocket.setNickname()
+    ClientSocket.setNickname(nickname)
 
   displayMessage: (who, message)->
     html = $("#messages").html()
@@ -31,4 +31,4 @@ class @Ui
     @clearMessageBox()
 
   displayChannel: (channel) ->
-    $("#channelName").html("Channel " + channel)
+    $("#channelName").html("Channel #{channel}")
