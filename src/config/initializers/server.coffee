@@ -6,8 +6,8 @@ class ServerInitializer
     @https = require 'https'
     @fs = require 'fs'
     @options = {
-          key: @fs.readFileSync('./private/key.pem'),
-          cert: @fs.readFileSync('./private/cacert.pem')
+          key: @fs.readFileSync(__dirname+'/../../../private/key.pem'),
+          cert: @fs.readFileSync(__dirname+'/../../../private/cacert.pem')
     }
     console.log "STARTING SERVER"
     @startExpress()

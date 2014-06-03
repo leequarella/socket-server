@@ -9,8 +9,8 @@
       this.https = require('https');
       this.fs = require('fs');
       this.options = {
-        key: this.fs.readFileSync('./private/key.pem'),
-        cert: this.fs.readFileSync('./private/cacert.pem')
+        key: this.fs.readFileSync(__dirname + '/../../../private/key.pem'),
+        cert: this.fs.readFileSync(__dirname + '/../../../private/cacert.pem')
       };
       console.log("STARTING SERVER");
       this.startExpress();
