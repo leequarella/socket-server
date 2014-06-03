@@ -11,6 +11,10 @@
     return res.sendfile("client/init.js");
   });
 
+  app.get('/389EFAE2EDA94A65C17F6472A4A35BEA.txt', function(req, res) {
+    return res.sendfile("client/389EFAE2EDA94A65C17F6472A4A35BEA.txt");
+  });
+
   app.get('/', function(req, res) {
     if (Security.checkCredentials(req.body.credentials)) {
       Logger.info("!! GET REQUEST RECEIVED !!");
