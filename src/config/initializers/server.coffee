@@ -21,6 +21,9 @@ class ServerInitializer
 
   startSocketIO: ->
     console.log " ...preparing http for socket.io"
+    if env === 'production'
+      app.listen app.get 'port', () ->
+        console.log "Express server running on: " + app.get 'port'
     global.server = @https.createServer(@options, app)
     server.listen port
     @httpserver = @http.createServer(app)
@@ -29,8 +32,6 @@ class ServerInitializer
 
   startStaticService: ->
     console.log " ...preparing to serve static assets"
-    app.listen app.get('port'), () ->
-      console.log "EXP Listening on port:" + process.env.PORT
     app.use @express.bodyParser()
     app.use @express.static(__dirname + '/static')
     console.log "..done."
