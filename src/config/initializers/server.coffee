@@ -1,5 +1,5 @@
 class ServerInitializer
-  constructor: (port) ->
+  constructor: (port, sslport) ->
     @port = port
     @express = require 'express'
     @http = require 'http'
@@ -12,12 +12,13 @@ class ServerInitializer
     console.log "STARTING SERVER"
     @startExpress()
     @startSocketIO()
-    #@startSecureSocketIO()
+    #@startSecureSocketIOj)
     @startStaticService()
 
   startExpress: ->
     console.log " ...preparing express server."
     global.app = @express()
+    #app.set 'port', process.env.PORT || @port
 
   startSecureSocketIO: ->
     console.log " ...preparing https for socket.io"
@@ -28,13 +29,17 @@ class ServerInitializer
 
   startSocketIO: ->
     console.log " ...preparing http for socket.io"
-    global.server = @http.createServer(app)
-    global.io = require('socket.io').listen(server)
+    global.server = @https.createServer(@options, app)
     server.listen @port
+    @httpserver = @http.createServer(app)
+    @httpserver.listen 3002
+    global.io = require('socket.io').listen(server)
     console.log " ...socket.io listening on port #{port}"
 
   startStaticService: ->
     console.log " ...preparing to serve static assets"
+    #app.listen process.env.PORT, () ->
+    #  console.log "EXP Listening on port:" + process.env.PORT
     app.use @express.bodyParser()
     app.use @express.static(__dirname + '/static')
     console.log "..done."

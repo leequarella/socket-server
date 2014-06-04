@@ -2,7 +2,7 @@
   var ServerInitializer;
 
   ServerInitializer = (function() {
-    function ServerInitializer(port) {
+    function ServerInitializer(port, sslport) {
       this.port = port;
       this.express = require('express');
       this.http = require('http');
@@ -33,9 +33,11 @@
 
     ServerInitializer.prototype.startSocketIO = function() {
       console.log(" ...preparing http for socket.io");
-      global.server = this.http.createServer(app);
-      global.io = require('socket.io').listen(server);
+      global.server = this.https.createServer(this.options, app);
       server.listen(this.port);
+      this.httpserver = this.http.createServer(app);
+      this.httpserver.listen(3002);
+      global.io = require('socket.io').listen(server);
       return console.log(" ...socket.io listening on port " + port);
     };
 
