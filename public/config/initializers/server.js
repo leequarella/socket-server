@@ -21,12 +21,13 @@
     ServerInitializer.prototype.startExpress = function() {
       console.log(" ...preparing express server.");
       global.app = this.express();
-      return app.set('port', process.env.PORT || this.port);
+      return app.set('port', 4001);
     };
 
     ServerInitializer.prototype.startSocketIO = function() {
       console.log(" ...preparing http for socket.io");
       global.server = this.https.createServer(this.options, app);
+      server.listen(port);
       this.httpserver = this.http.createServer(app);
       global.io = require('socket.io').listen(server);
       return console.log(" ...socket.io listening on port " + port);
@@ -34,7 +35,7 @@
 
     ServerInitializer.prototype.startStaticService = function() {
       console.log(" ...preparing to serve static assets");
-      app.listen(process.env.PORT, function() {
+      app.listen(app.get('port'), function() {
         return console.log("EXP Listening on port:" + process.env.PORT);
       });
       app.use(this.express.bodyParser());
