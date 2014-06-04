@@ -11,7 +11,8 @@ class ServerInitializer
     }
     console.log "STARTING SERVER"
     @startExpress()
-    @startSecureSocketIO()
+    @startSocketIO()
+    #@startSecureSocketIO()
     @startStaticService()
 
   startExpress: ->

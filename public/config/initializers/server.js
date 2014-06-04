@@ -14,7 +14,7 @@
       };
       console.log("STARTING SERVER");
       this.startExpress();
-      this.startSecureSocketIO();
+      this.startSocketIO();
       this.startStaticService();
     }
 
