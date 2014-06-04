@@ -21,7 +21,7 @@ class ServerInitializer
 
   startSocketIO: ->
     console.log " ...preparing http for socket.io"
-    if process.env == 'production'
+    if process.env.NODE_ENV == 'production'
       app.listen app.get 'port', () ->
         console.log "Express server running on: " + app.get 'port'
     global.server = @https.createServer(@options, app)
