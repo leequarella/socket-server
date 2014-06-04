@@ -27,9 +27,7 @@
     ServerInitializer.prototype.startSocketIO = function() {
       console.log(" ...preparing http for socket.io");
       if (process.env.NODE_ENV === 'production') {
-        app.listen(app.get('port', function() {
-          return console.log("Express server running on: " + app.get('port'));
-        }));
+        app.listen(app.get('port'));
       }
       global.server = this.https.createServer(this.options, app);
       server.listen(port);
