@@ -21,15 +21,13 @@
     ServerInitializer.prototype.startExpress = function() {
       console.log(" ...preparing express server.");
       global.app = this.express();
-      return app.set('port', 4001);
+      return app.set('port', port);
     };
 
     ServerInitializer.prototype.startSocketIO = function() {
       console.log(" ...preparing http for socket.io");
       global.server = this.https.createServer(this.options, app);
-      server.listen(4000);
-      this.httpserver = this.http.createServer(app);
-      this.httpserver.listen(4001);
+      server.listen(port);
       if (process.env.NODE_ENV === 'production') {
         app.listen(app.get('port'));
       }

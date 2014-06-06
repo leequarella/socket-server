@@ -17,14 +17,12 @@ class ServerInitializer
   startExpress: ->
     console.log " ...preparing express server."
     global.app = @express()
-    app.set 'port', 4001
+    app.set 'port', port
 
   startSocketIO: ->
     console.log " ...preparing http for socket.io"
     global.server = @https.createServer(@options, app)
-    server.listen 4000
-    @httpserver = @http.createServer(app)
-    @httpserver.listen 4001
+    server.listen port
     if process.env.NODE_ENV == 'production'
       app.listen app.get 'port'
     global.io = require('socket.io').listen(server)
