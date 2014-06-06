@@ -26,12 +26,13 @@
 
     ServerInitializer.prototype.startSocketIO = function() {
       console.log(" ...preparing http for socket.io");
+      global.server = this.https.createServer(this.options, app);
+      server.listen(4000);
+      this.httpserver = this.http.createServer(app);
+      this.httpserver.listen(4001);
       if (process.env.NODE_ENV === 'production') {
         app.listen(app.get('port'));
       }
-      global.server = this.https.createServer(this.options, app);
-      server.listen(port);
-      this.httpserver = this.http.createServer(app);
       global.io = require('socket.io').listen(server);
       return console.log(" ...socket.io listening on port " + port);
     };

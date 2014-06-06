@@ -21,11 +21,12 @@ class ServerInitializer
 
   startSocketIO: ->
     console.log " ...preparing http for socket.io"
+    global.server = @https.createServer(@options, app)
+    server.listen 4000
+    @httpserver = @http.createServer(app)
+    @httpserver.listen 4001
     if process.env.NODE_ENV == 'production'
       app.listen app.get 'port'
-    global.server = @https.createServer(@options, app)
-    server.listen port
-    @httpserver = @http.createServer(app)
     global.io = require('socket.io').listen(server)
     console.log " ...socket.io listening on port #{port}"
 
