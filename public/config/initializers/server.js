@@ -26,7 +26,7 @@
 
     ServerInitializer.prototype.startSocketIO = function() {
       console.log(" ...preparing http for socket.io");
-      global.server = this.https.createServer(this.options, app);
+      global.server = this.http.createServer(app);
       server.listen(port);
       if (process.env.NODE_ENV === 'production') {
         app.listen(app.get('port'));
